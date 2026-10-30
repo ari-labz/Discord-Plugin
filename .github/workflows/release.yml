@@ -1,0 +1,16 @@
+# Tag a version (git tag v1.0.0 && git push --tags) and this builds discord.ari and attaches it to the release.
+name: Release
+on:
+  push:
+    tags: ["v*"]
+jobs:
+  release:
+    uses: ari-labz/A.R.I-Plugins/.github/workflows/release-plugin.yml@main
+    permissions: { contents: write }
+    with:
+      id: discord
+      name: Discord
+      description: "Reads and replies to messages in Discord servers and DMs, and joins voice channels."
+      author: first-party
+      project: ARI.Plugin.Discord.csproj
+      entry: ARI.Plugin.Discord.dll

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>ARI.Plugin.Discord</AssemblyName>
+    <RootNamespace>ARI.Plugins.Discord</RootNamespace>
+    <!-- Where ARI's source is checked out. Next to this repo by default; pass -p:AriHost=... to point elsewhere. -->
+    <AriHost Condition="'$(AriHost)' == ''">$(MSBuildThisFileDirectory)../A.R.I/Server</AriHost>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Discord.Net" Version="3.20.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.8" />
+    <PackageReference Include="libsodium" Version="1.0.22" />
+    <PackageReference Include="OpusSharp.Natives" Version="1.6.1.4" />
+  </ItemGroup>
+
+  <!-- The plugin's own source ships inside it, so the plugin page can show it. -->
+  <ItemGroup>
+    <EmbeddedResource Include="*.cs" LogicalName="source/%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(AriHost)/ARI.LLM/ARI.LLM.csproj"><Private>false</Private></ProjectReference>
+    <ProjectReference Include="$(AriHost)/ARI.Common/ARI.Common.csproj"><Private>false</Private></ProjectReference>
+  </ItemGroup>
+
+  <!-- libdave (Discord's voice encryption) is downloaded by ARI itself the first time voice needs it. -->
+</Project>
