@@ -1,8 +1,10 @@
-# Tag a version (git tag v1.0.0 && git push --tags) and this builds discord.ari and attaches it to the release.
+# Builds discord.ari and attaches it to the release.
 name: Release
+# Manual for now: the build needs ARI's plugin host support, which is not on GitHub yet. Switch this back to
+#   on: { push: { tags: ["v*"] } }
+# once it is, and the workflow will build a release from every version tag.
 on:
-  push:
-    tags: ["v*"]
+  workflow_dispatch:
 jobs:
   release:
     uses: ari-labz/A.R.I-Plugins/.github/workflows/release-plugin.yml@main
